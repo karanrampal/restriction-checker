@@ -1,0 +1,77 @@
+[project]
+name = "restriction-checker"
+version = "0.1.0"
+description = "Check input for restricted items"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "db-dtypes>=1.5.0",
+    "fastapi[standard]>=0.135.1",
+    "gcsfs>=2026.2.0",
+    "google-adk>=1.26.0",
+    "google-auth>=2.48.0",
+    "google-cloud-bigquery>=3.40.1",
+    "httpx>=0.28.1",
+    "litellm>=1.82.0",
+    "openpyxl>=3.1.5",
+    "pandas>=2.3.3",
+    "pandas-gbq>=0.34.0",
+    "pillow>=12.1.1",
+    "pydantic>=2.12.5",
+    "pyyaml>=6.0.3",
+    "slowapi>=0.1.9",
+    "streamlit>=1.55.0",
+    "tqdm>=4.67.3",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "pandas-stubs>=3.0.0.260204",
+    "pylint>=4.0.5",
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-benchmark>=5.2.3",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.15.5",
+    "types-pyyaml>=6.0.12.20250915",
+    "types-tqdm>=4.67.3.20260303",
+]
+
+[tool.uv]
+environments = ["sys_platform == 'linux'"]
+
+[tool.mypy]
+mypy_path = ["src", "tests"]
+show_error_codes = true
+ignore_missing_imports = false
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[[tool.mypy.overrides]]
+module = ["gcsfs.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+markers = [
+    "network: test requires external network access (deselect with -m 'not network')",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]

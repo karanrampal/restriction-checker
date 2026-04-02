@@ -1,0 +1,24 @@
+project:
+  id: "restrictor-check-345e"
+  location: "europe-west1"
+
+storage:
+  gcs_bucket: "restrictor-gcs-dev"
+
+api:
+  allowed_url_prefixes:
+    - "https://imagebankstorageprod.blob.core.windows.net/articleimagebank/"
+
+agents:
+  qa:
+    model_name: "gemini-2.5-flash"
+    # base_url: "https://custom-endpoint"  # omit for Gemini
+    temperature: 0.0
+    top_p: 0.5
+    thinking_budget: 1024
+    max_output_tokens: 2048  # should be thinking_budget + max_answer_tokens
+
+  restrictor:
+    model_name: "gemini-3.1-pro-preview"
+    thinking_level: "low"
+    max_output_tokens: 1024
